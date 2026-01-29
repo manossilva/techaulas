@@ -28,7 +28,6 @@
             overflow-x: hidden;
         }
 
-        /* Fundo Animado */
         .ambient-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: #000; overflow: hidden; }
         .blob { position: absolute; filter: blur(80px); opacity: 0.4; animation: float 20s infinite ease-in-out; }
         .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, #1e3a8a 0%, transparent 70%); }
@@ -60,6 +59,10 @@
             color: #60a5fa;
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
             transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         .btn-neon:hover {
             background: rgba(59, 130, 246, 0.2);
@@ -70,14 +73,13 @@
 
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
-        .a4-paper { aspect-ratio: 210/297; width: 100%; max-width: 450px; background: #f5f5f7; margin: 0 auto; position: relative; }
     </style>
 </head>
 <body>
 
     <script>
         const LINK_CHECKOUT = "https://avaliasmart.netlify.app/admin/dashboard"; 
+        // Dica: Se o vídeo não rodar, tente converter para .mp4 no Supabase
         const LINK_VIDEO_SUPABASE = "https://hcdsbawdwzmlujxnxymf.supabase.co/storage/v1/object/public/video%20lp1/2025-09-06%2012-42-33.mov";
     </script>
 
@@ -97,49 +99,79 @@
             <span class="text-gradient-blue">Gerencie menos.</span>
         </h1>
 
-        <div class="flex flex-col md:flex-row items-center gap-4 mb-16">
-            <a onclick="location.href=LINK_CHECKOUT" class="btn-neon px-8 py-4 rounded-full font-bold text-lg cursor-pointer">
+        <div class="mb-16">
+            <a onclick="location.href=LINK_CHECKOUT" class="btn-neon px-8 py-4 rounded-full font-bold text-lg">
                 Teste por R$0,00 Agora
             </a>
         </div>
 
-        <div class="w-full max-w-4xl relative z-10">
+        <div class="w-full max-w-4xl relative z-10 mb-20">
             <div class="aspect-video bg-[#050505] rounded-3xl border border-[#ffffff10] overflow-hidden shadow-[0_0_50px_rgba(59,130,246,0.15)]">
-                <video id="mainVideo" controls class="w-full h-full" poster="https://hcdsbawdwzmlujxnxymf.supabase.co/storage/v1/object/public/video%20lp1/Gemini_Generated_Image_o4vynvo4vynvo4vy.png">
-                    <source id="videoSource" src="" type="video/mp4">
+                <video id="mainVideo" controls playsinline class="w-full h-full" poster="https://hcdsbawdwzmlujxnxymf.supabase.co/storage/v1/object/public/video%20lp1/Gemini_Generated_Image_o4vynvo4vynvo4vy.png">
+                    <source id="videoSource" src="" type="video/quicktime">
+                    <source src="" type="video/mp4">
                     Seu navegador não suporta vídeos.
                 </video>
             </div>
         </div>
     </section>
 
+    <section id="funcionalidades" class="py-24 px-6 relative z-10">
+        <div class="container mx-auto max-w-5xl">
+            <div class="reveal grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 text-center">
+                    <span class="material-symbols-outlined text-4xl text-blue-400 mb-4">auto_fix_high</span>
+                    <h3 class="text-xl font-bold mb-2">Provas com IA</h3>
+                    <p class="text-gray-400 text-sm">Gere avaliações completas e alinhadas à BNCC em segundos.</p>
+                </div>
+                <div class="glass-card p-8 text-center">
+                    <span class="material-symbols-outlined text-4xl text-blue-400 mb-4">description</span>
+                    <h3 class="text-xl font-bold mb-2">Planos de Aula</h3>
+                    <p class="text-gray-400 text-sm">Cronogramas e sequências didáticas prontos para imprimir.</p>
+                </div>
+                <div class="glass-card p-8 text-center">
+                    <span class="material-symbols-outlined text-4xl text-blue-400 mb-4">schedule</span>
+                    <h3 class="text-xl font-bold mb-2">Ganhe Tempo</h3>
+                    <p class="text-gray-400 text-sm">Reduza em até 80% o tempo gasto com burocracia escolar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="oferta" class="py-32 px-6">
         <div class="container mx-auto max-w-4xl">
-            <div class="reveal glass-card p-12 text-center">
-                <h2 class="text-4xl font-bold mb-4">Teste por <span class="text-blue-400">R$ 0,00</span></h2>
+            <div class="reveal glass-card p-12 text-center border-t border-blue-500/30">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Comece hoje mesmo</h2>
+                <p class="text-xl text-gray-400 mb-8">Experimente todas as ferramentas por 14 dias sem custo.</p>
                 <button onclick="location.href=LINK_CHECKOUT" class="btn-neon px-12 py-5 rounded-full text-xl font-bold">
-                    Começar meus 14 dias Grátis
+                    Ativar Teste Grátis
                 </button>
             </div>
         </div>
     </section>
 
+    <footer class="py-12 text-center text-gray-600 text-sm border-t border-white/5">
+        <p>&copy; 2026 Tech Aulas. Todos os direitos reservados.</p>
+    </footer>
+
     <script>
-        // Aplicar o link do vídeo automaticamente
-        document.getElementById('videoSource').src = LINK_VIDEO_SUPABASE;
-        document.getElementById('mainVideo').load();
+        // Configuração do Vídeo
+        const video = document.getElementById('mainVideo');
+        const source = document.getElementById('videoSource');
+        source.src = LINK_VIDEO_SUPABASE;
+        video.load();
 
-        // Reveal no Scroll
-        window.addEventListener('scroll', () => {
-            document.querySelectorAll('.reveal').forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
+        // Animação de Revelar ao descer a página
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
             });
-        });
+        }, observerOptions);
 
-        // Configuração Supabase (Para segurança futura)
-        const supabaseUrl = 'SUA_URL_SUPABASE';
-        const supabaseKey = 'SUA_CHAVE_ANONIMA';
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
