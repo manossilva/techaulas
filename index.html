@@ -20,9 +20,10 @@
             background-color: #000000;
             color: #f5f5f7;
             overflow-x: hidden;
+            width: 100%;
         }
 
-        /* Fundo Animado Apple-Style (Fluid Blobs) */
+        /* Fundo Animado Apple-Style */
         .ambient-bg {
             position: fixed;
             top: 0;
@@ -35,7 +36,7 @@
         }
         .blob {
             position: absolute;
-            filter: blur(100px);
+            filter: blur(80px);
             opacity: 0.3;
             animation: float 25s infinite ease-in-out;
         }
@@ -45,19 +46,18 @@
 
         @keyframes float {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(40px, -60px) scale(1.1); }
-            66% { transform: translate(-30px, 30px) scale(0.95); }
+            33% { transform: translate(20px, -30px) scale(1.05); }
+            66% { transform: translate(-15px, 15px) scale(0.95); }
         }
 
-        /* Glassmorphism Efeito Apple Profundo */
+        /* Glassmorphism Efeito Apple */
         .apple-glass {
-            background: rgba(15, 15, 15, 0.8);
+            background: rgba(15, 15, 15, 0.85);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid var(--glass-border);
         }
 
-        /* Spotlight Effect on Hover */
         .glass-card {
             position: relative;
             background: var(--glass-bg);
@@ -69,28 +69,13 @@
             overflow: hidden;
         }
         
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
             .glass-card:hover {
                 border-color: rgba(59, 130, 246, 0.5);
                 transform: translateY(-4px);
             }
         }
 
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(500px circle at var(--mouse-x) var(--mouse-y), rgba(59, 130, 246, 0.12), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.5s;
-            pointer-events: none;
-        }
-        .glass-card:hover::before { opacity: 1; }
-
-        /* Navigation */
-        .nav-hidden { transform: translate(-50%, -150%); opacity: 0; }
-
-        /* Typography */
         .text-gradient-blue {
             background: linear-gradient(135deg, #60a5fa 0%, #22d3ee 100%);
             -webkit-background-clip: text;
@@ -103,6 +88,9 @@
             color: #60a5fa;
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         .btn-neon:hover {
             background: #3b82f6;
@@ -111,15 +99,13 @@
             color: #fff;
         }
 
-        /* Reveal Animation */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Hero Animation */
         .hero-animate {
             animation: slideUpFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
@@ -131,7 +117,6 @@
 
         @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
 
-        /* Price Highlight */
         .price-card {
             background: linear-gradient(180deg, rgba(37, 99, 235, 0.15) 0%, rgba(0, 0, 0, 0.8) 100%);
             border: 2px solid #3b82f6;
@@ -140,6 +125,17 @@
 
         .check-green { color: #4ade80; }
         .cross-red { color: #f87171; }
+        .nav-hidden { transform: translate(-50%, -150%); opacity: 0; }
+        
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Apple Video UI */
+        .video-container:hover #videoOverlay {
+            background: rgba(0,0,0,0.4);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -152,48 +148,53 @@
     </div>
 
     <!-- Navbar -->
-    <nav id="navbar" class="fixed top-6 left-1/2 -translate-x-1/2 w-[92%] max-w-4xl z-50 apple-glass px-6 py-3 rounded-full flex justify-between items-center shadow-2xl transition-all duration-500">
-        <div class="flex items-center gap-3">
-            <!-- Espaço para Logo Supabase -->
+    <nav id="navbar" class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[94%] max-w-4xl z-50 apple-glass px-4 md:px-6 py-2.5 md:py-3 rounded-full flex justify-between items-center shadow-2xl transition-all duration-500">
+        <div class="flex items-center gap-2">
             <a href="/" class="flex items-center gap-2">
-                <img src="https://hcdsbawdwzmlujxnxymf.supabase.co/storage/v1/object/public/video%20lp1/CABEcA.png" alt="Logo Tech Aulas" class="w-8 h-8 rounded-lg object-contain">
-                <div class="text-lg font-bold tracking-tight">Tech<span class="text-blue-400">Aulas</span></div>
+                <img src="https://hcdsbawdwzmlujxnxymf.supabase.co/storage/v1/object/public/video%20lp1/CABEcA.png" alt="Logo Tech Aulas" class="w-7 h-7 md:w-8 md:h-8 rounded-lg object-contain">
+                <div class="text-base md:text-lg font-bold tracking-tight">Tech<span class="text-blue-400">Aulas</span></div>
             </a>
         </div>
-        <div class="hidden md:flex space-x-6 text-xs font-semibold uppercase tracking-wider text-gray-400">
+        <div class="hidden md:flex space-x-6 text-[10px] font-semibold uppercase tracking-wider text-gray-400">
             <a href="#funcionalidades" class="hover:text-white transition">Funcionalidades</a>
             <a href="#para-quem" class="hover:text-white transition">Público</a>
             <a href="#oferta" class="hover:text-white transition">Preço</a>
         </div>
-        <a href="#oferta" class="bg-blue-600 text-white px-5 py-2 rounded-full text-xs font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-600/20">
+        <a href="#oferta" class="bg-blue-600 text-white px-4 md:px-5 py-1.5 md:py-2 rounded-full text-[10px] md:text-xs font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-600/20">
             Começar
         </a>
     </nav>
 
     <!-- HERO SECTION -->
-        <h1 class="hero-animate hero-delay-1 text-4xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 leading-tight">
+    <section class="min-h-screen flex flex-col justify-center items-center px-4 md:px-6 pt-24 pb-12 relative text-center">
+        <div class="hero-animate hero-delay-1 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-6">
+            <span class="material-symbols-outlined text-sm">bolt</span>
+            O assistente inteligente do Professor Moderno
+        </div>
+
+        <h1 class="hero-animate hero-delay-1 text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 leading-[1.1]">
             Professor, recupere<br>
-            <span class="text-gradient-blue">15h da sua semana com esse sistema.</span>
+            <span class="text-gradient-blue">15h da sua semana.</span>
         </h1>
 
-        <p class="hero-animate hero-delay-2 text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto mb-10 font-light leading-relaxed">
-            Crie provas e planos de aula completos em segundos. Teste grátis sem necessidade de cartão de crédito.
+        <p class="hero-animate hero-delay-2 text-base md:text-xl lg:text-2xl text-gray-400 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+            Crie provas de alta qualidade e planos de aula em segundos. Teste grátis por 14 dias — sem cartão.
         </p>
 
-        <div class="hero-animate hero-delay-3 flex flex-col items-center gap-6 mb-16">
-            <a href="#oferta" class="btn-neon px-10 py-5 rounded-full font-black text-lg w-full sm:w-auto">
+        <div class="hero-animate hero-delay-3 flex flex-col items-center gap-6 mb-12 w-full max-w-md mx-auto">
+            <a href="#oferta" class="btn-neon px-8 py-4 md:py-5 rounded-full font-black text-base md:text-lg w-full">
                 Garantir Teste de 14 Dias
             </a>
-            <div class="flex items-center gap-4">
+            <div class="flex flex-col md:flex-row items-center gap-3">
                 <div class="flex -space-x-2">
-                    <!-- Links para Fotos do Supabase -->
-                    <img class="h-8 w-8 rounded-full ring-2 ring-black object-cover" src="https://i.pravatar.cc/100?u=tech1" alt="Usuário">
-                    <img class="h-8 w-8 rounded-full ring-2 ring-black object-cover" src="https://i.pravatar.cc/100?u=tech2" alt="Usuário">
-                    <img class="h-8 w-8 rounded-full ring-2 ring-black object-cover" src="https://i.pravatar.cc/100?u=tech3" alt="Usuário">
+                    <img class="h-7 w-7 md:h-8 md:w-8 rounded-full ring-2 ring-black object-cover" src="https://i.pravatar.cc/100?u=tech1" alt="Usuário">
+                    <img class="h-7 w-7 md:h-8 md:w-8 rounded-full ring-2 ring-black object-cover" src="https://i.pravatar.cc/100?u=tech2" alt="Usuário">
+                    <img class="h-7 w-7 md:h-8 md:w-8 rounded-full ring-2 ring-black object-cover" src="https://i.pravatar.cc/100?u=tech3" alt="Usuário">
                 </div>
-                <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">+ 200 Professores economizando tempo hoje</p>
+                <p class="text-[9px] md:text-[10px] text-gray-500 font-bold uppercase tracking-widest text-center">+ 200 Professores economizando tempo</p>
             </div>
         </div>
+
  <!-- Hero Preview - FORMATO REELS -->
         <div class="hero-animate hero-delay-3 w-full flex justify-center px-4">
             <div class="video-container w-full max-w-[300px] sm:max-w-[340px] aspect-[9/16] bg-black rounded-[40px] border-[5px] border-white/10 overflow-hidden relative shadow-2xl ring-1 ring-white/5 cursor-pointer" onclick="handleVideoClick()">
